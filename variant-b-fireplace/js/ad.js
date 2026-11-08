@@ -82,6 +82,9 @@ function waitForStart() {
     });
     setTimeout(start, 5000);
   } else {
-    window.addEventListener('load', start);
+    // Also wait for web fonts (top headline), so the text never animates in a fallback font.
+    window.addEventListener('load', () => {
+      (document.fonts ? document.fonts.ready : Promise.resolve()).then(start);
+    });
   }
 }

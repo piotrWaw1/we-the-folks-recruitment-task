@@ -95,18 +95,44 @@ body {
   border-radius: 6px;
 }
 
-/* ---------- Top headline, split into 3 lines ----------
-   Each line shows one horizontal slice of top/hl.png (1032 x 250 CSS px),
-   so we can animate the lines one after another.
-   Cut points were measured from the empty rows between the lines in the PNG. */
-.line {
+/* ---------- Top headline, 3 lines of live text ----------
+   The headline PNG (top/hl.png) has the wrong wording, so the text is set in HTML
+   to match design/layout.png. Each line is its own element so the lines can be
+   animated one after another. Sizes and positions measured from design/layout.png. */
+.headline {
   position: absolute;
+  top: 38px;
   left: 0;
   width: 1032px;
-  background: url("../assets/top/hl.png") no-repeat;
-  background-size: 1032px 250px;
+  text-align: center;
 }
 
-.line-1 { top: 0;     height: 85px;  background-position: 0 0; }
-.line-2 { top: 85px;  height: 67px;  background-position: 0 -85px; }
-.line-3 { top: 152px; height: 98px;  background-position: 0 -152px; }
+/* Subtle dark glow behind the whole headline, so the text stands out from the moss. */
+.headline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 640px;
+  height: 230px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+.line {
+  position: relative; /* keeps the text above the glow */
+  font-family: "PT Sans Narrow", "Arial Narrow", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow:
+    2px 3px 4px rgba(0, 0, 0, 0.6),
+    0 0 18px rgba(0, 0, 0, 0.45);
+}
+
+.line-1 { font-size: 74px; }
+.line-2 { font-size: 54px; margin-top: 2px; }
+.line-3 { font-size: 54px; }
