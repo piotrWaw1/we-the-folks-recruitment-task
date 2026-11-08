@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fireplace preview</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #262626;
+      font-family: sans-serif;
+      color: #aaa;
+    }
+
+    /* The whole fireplace is 1680 x 975 px, the same size as bg-big.jpg. */
+    .fireplace {
+      position: relative;
+      width: 1680px;
+      height: 975px;
+    }
+
+    iframe {
+      position: absolute;
+      top: 0;
+      border: 0;
+    }
+
+    .left  { left: 0;      width: 320px;  height: 975px; }
+    .top   { left: 324px;  width: 1032px; height: 250px; }
+    .right { left: 1360px; width: 320px;  height: 975px; }
+
+    /* Empty space where the publisher's website would be. */
+    .website {
+      position: absolute;
+      left: 324px;
+      top: 254px;
+      width: 1032px;
+      height: 721px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed #555;
+      box-sizing: border-box;
+    }
+
+    /* Debug overlay: open preview.html?debug
+       In design/layout.png the fireplace starts at (28, 50) and is about 2.7% smaller
+       than the real size (1634 x 950 px instead of 1680 x 975), so we scale it back up. */
+    .overlay {
+      display: none;
+      position: absolute;
+      left: -28.8px;   /* -28 * 1.0282 */
+      top: -51.3px;    /* -50 * 1.0263 */
+      width: 1731.5px; /* 1684 * 1.0282 */
+      height: 1044.8px;/* 1018 * 1.0263 */
+      opacity: 0.5;
+      pointer-events: none; /* clicks still go to the ad */
+    }
+
+    .debug .overlay {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="fireplace">
+    <!-- ?sync tells each part to wait for our "start" message -->
+    <iframe class="left" src="left.html?sync" title="Fireplace left"></iframe>
+    <iframe class="top" src="top.html?sync" title="Fireplace top"></iframe>
+    <iframe class="right" src="right.html?sync" title="Fireplace right"></iframe>
+
+    <div class="website">Website content</div>
+
+    <img class="overlay" src="design/layout.png" alt="">
+  </div>
+
+  <script>
+    // Show the design overlay when the URL contains ?debug
+    if (location.search.includes('debug')) {
+      document.body.classList.add('debug');
+    }
+
+    // The page "load" event fires only after all three iframes have loaded.
+    // Then we tell all parts to start at the same moment.
+    window.addEventListener('load', () => {
+      document.querySelectorAll('iframe').forEach((frame) => {
+        frame.contentWindow.postMessage('fireplace-start', '*');
+      });
+    });
+  </script>
+</body>
+</html>

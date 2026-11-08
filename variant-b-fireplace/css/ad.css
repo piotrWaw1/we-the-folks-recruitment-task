@@ -1,0 +1,112 @@
+/* Shared styles for all three parts (top, left, right).
+   All images are exported at 2x, so we always show them at 50% of their pixel size. */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  overflow: hidden;
+}
+
+/* The ad itself. Size depends on the part (set below). */
+.ad {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.part-top .ad   { width: 1032px; height: 250px; }
+.part-left .ad,
+.part-right .ad { width: 320px;  height: 975px; }
+
+/* ---------- Background ----------
+   One big image (bg-big.jpg) for the whole fireplace: 1680 x 975 CSS px.
+   Every part shows only its own slice by moving the image to the left.
+   transform-origin is the centre of the WHOLE fireplace and is the same in every part,
+   so when we zoom, all three slices zoom together like one surface. */
+.bg {
+  position: absolute;
+  top: 0;
+  width: 1680px;
+  height: 975px;
+  background: url("../assets/bg-big.jpg") 0 0 / 1680px 975px no-repeat;
+  transform-origin: 840px 487px;
+}
+
+.part-left .bg  { left: 0; }
+.part-top .bg   { left: -324px; }   /* top banner starts 324px from the left edge */
+.part-right .bg { left: -1360px; }  /* right skyscraper starts 1360px from the left edge */
+
+/* ---------- Full-size layers ----------
+   logo.png and hl.png are as big as the whole ad (640 x 1950),
+   so we just stretch them over the ad and they land in the right place. */
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The copy images (left/hl.png, right/hl.png) have no transparency:
+   white text on a solid black background. "screen" blending makes black invisible
+   and keeps white white, so the text sits nicely on the panel. */
+.copy {
+  mix-blend-mode: screen;
+}
+
+/* ---------- Text panel (box.png) ----------
+   box.png is 640 x 1950 but it is NOT transparent: everything except the blue band is
+   solid black. So we only show the blue band (y 744px to 914px) through a "window"
+   with overflow: hidden. In the design the moss shines through the panel a little,
+   so the image gets 85% opacity. */
+.box {
+  position: absolute;
+  left: 0;
+  top: 744px;
+  width: 320px;
+  height: 170px;
+  overflow: hidden;
+}
+
+.box img {
+  position: absolute;
+  left: 0;
+  top: -744px; /* move the image up so the blue band sits in the window */
+  width: 320px;
+  height: 975px;
+  opacity: 0.85;
+}
+
+/* ---------- CTA button ----------
+   cta.png is 345 x 93 px, so 172.5 x 46.5 CSS px.
+   Position measured from design/layout.png.
+   The PNG has black (not transparent) corners, so we round the corners off with CSS. */
+.cta {
+  position: absolute;
+  left: 74px;
+  top: 837px;
+  width: 172.5px;
+  height: 46.5px;
+  border-radius: 6px;
+}
+
+/* ---------- Top headline, split into 3 lines ----------
+   Each line shows one horizontal slice of top/hl.png (1032 x 250 CSS px),
+   so we can animate the lines one after another.
+   Cut points were measured from the empty rows between the lines in the PNG. */
+.line {
+  position: absolute;
+  left: 0;
+  width: 1032px;
+  background: url("../assets/top/hl.png") no-repeat;
+  background-size: 1032px 250px;
+}
+
+.line-1 { top: 0;     height: 85px;  background-position: 0 0; }
+.line-2 { top: 85px;  height: 67px;  background-position: 0 -85px; }
+.line-3 { top: 152px; height: 98px;  background-position: 0 -152px; }
