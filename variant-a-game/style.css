@@ -1,0 +1,155 @@
+/* ---------- Page ---------- */
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* Extra space around the ad: white on top (like the logo bar), navy below (like the game). */
+  background: linear-gradient(#ffffff 50%, #0c1e4a 50%);
+  touch-action: manipulation; /* no double-tap zoom */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Stage: always 360x640 design pixels, scaled by game.js ---------- */
+#stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 360px;
+  height: 640px;
+  overflow: hidden;
+  transform-origin: 0 0; /* game.js moves + scales it to fit the screen */
+  cursor: pointer;
+}
+
+#stage img {
+  position: absolute;
+  display: block;
+  pointer-events: none; /* taps go to the stage, not to images */
+  -webkit-user-drag: none;
+}
+
+/* Full-frame layers (720x1280 @2x -> 360x640) */
+#stage .full {
+  left: 0;
+  top: 0;
+  width: 360px;
+  height: 640px;
+}
+
+/* ---------- Game ---------- */
+#track {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 640px;
+  will-change: transform;
+}
+
+#gut {
+  left: 0;
+  top: 0;
+  width: 2528px; /* 5056 / 2 */
+  height: 640px;
+}
+
+#player {
+  left: 55px;
+  top: 258px;
+  width: 42px; /* 84 / 2 */
+  height: 41px; /* 82 / 2 */
+  will-change: transform;
+}
+
+/* Navy band behind the headline: hides the top of the gut */
+#header-band {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 360px;
+  height: 168px;
+  background: #0c1e4a;
+}
+
+/* White bar behind logo.png (its top pixel row is slightly see-through) */
+#logo-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 360px;
+  height: 58px;
+  background: #ffffff;
+}
+
+/* ---------- Screens ---------- */
+.screen {
+  position: absolute;
+  inset: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+#gesture {
+  left: 150px;
+  top: 451px;
+  width: 86.5px; /* 173 / 2 */
+  height: 96px; /* 192 / 2 */
+}
+
+/* Buttons on the endcards */
+#stage .button {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+#fail-cta {
+  left: 38.5px;
+  top: 482px;
+  width: 186px; /* 372 / 2 */
+}
+
+#replay {
+  left: 38.5px;
+  top: 538px;
+  width: 185.5px; /* 371 / 2 */
+}
+
+#win-cta {
+  left: 27px;
+  top: 560px;
+  width: 214px; /* 428 / 2 */
+}
+
+/* ---------- Mute button (top right corner of the logo bar) ---------- */
+#mute {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(12, 30, 74, 0.08);
+  font-size: 16px;
+  line-height: 32px;
+  cursor: pointer;
+}
+
+/* ---------- Debug hitboxes (?debug=1) ---------- */
+#debug-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hitbox {
+  position: absolute;
+  border: 1px solid red;
+  box-sizing: border-box;
+}

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+    />
+    <title>Gut Run</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!--
+      The whole ad lives inside #stage, which is always 360x640 "design pixels".
+      game.js scales it up or down to fit the phone screen.
+      Every image is @2x, so it is shown at half of its pixel size.
+    -->
+    <div id="stage">
+      <!-- ===== GAME LAYERS (always there, under the screens) ===== -->
+      <img class="full" src="assets/bg.jpg" alt="" />
+      <img class="full" src="assets/01_game/bg_texture.png" alt="" />
+
+      <!-- The track moves left. It holds the gut AND the obstacles, so they move together. -->
+      <div id="track">
+        <img id="gut" src="assets/01_game/gameplay.png" alt="" />
+        <!-- obstacles are added here by game.js -->
+      </div>
+
+      <img id="player" src="assets/01_game/player.png" alt="" />
+
+      <div id="header-band"></div>
+      <img class="full" src="assets/border.png" alt="" />
+
+      <!-- ===== START SCREEN ===== -->
+      <div id="start" class="screen">
+        <!-- decoration so the start screen looks like design/01-start.png -->
+        <img
+          class="decor"
+          src="assets/01_game/bac6.png"
+          style="left: 85px; top: 322px; width: 50px"
+          alt=""
+        />
+        <img
+          class="decor"
+          src="assets/01_game/bac2.png"
+          style="left: 274px; top: 330px; width: 21.5px"
+          alt=""
+        />
+        <img
+          class="decor"
+          src="assets/01_game/txt1.png"
+          style="left: 98px; top: 371px; width: 23px"
+          alt=""
+        />
+        <img
+          class="decor"
+          src="assets/01_game/txt2.png"
+          style="left: 300px; top: 389px; width: 34px"
+          alt=""
+        />
+
+        <img id="tut" class="full" src="assets/01_game/tut.png" alt="" />
+        <img id="gesture" src="assets/gesture.png" alt="" />
+      </div>
+
+      <!-- ===== FAIL ENDCARD ===== -->
+      <div id="fail" class="screen hidden">
+        <img class="full" src="assets/bg.jpg" alt="" />
+        <img
+          class="full fail-bubble"
+          src="assets/02_endcard/fail/bubble.png"
+          alt=""
+        />
+        <img
+          class="full fail-bac"
+          src="assets/02_endcard/fail/bac1.png"
+          alt=""
+        />
+        <img
+          class="full fail-bac"
+          src="assets/02_endcard/fail/bac2.png"
+          alt=""
+        />
+        <img
+          class="full fail-bac"
+          src="assets/02_endcard/fail/bac3.png"
+          alt=""
+        />
+        <img
+          class="full fail-bac"
+          src="assets/02_endcard/fail/bac4.png"
+          alt=""
+        />
+        <img
+          class="full fail-bac"
+          src="assets/02_endcard/fail/bac5.png"
+          alt=""
+        />
+        <img
+          class="full fail-sad"
+          src="assets/02_endcard/fail/sad.png"
+          alt=""
+        />
+        <img
+          class="full fail-hl"
+          src="assets/02_endcard/fail/hl.png"
+          alt="Poo, das tat weh!"
+        />
+        <img
+          id="fail-cta"
+          class="button cta"
+          src="assets/02_endcard/fail/cta.png"
+          alt="Jetzt informieren!"
+        />
+        <img
+          id="replay"
+          class="button"
+          src="assets/02_endcard/fail/replay.png"
+          alt="Nochmal spielen"
+        />
+      </div>
+
+      <!-- ===== WIN ENDCARD ===== -->
+      <div id="win" class="screen hidden">
+        <img class="full" src="assets/bg.jpg" alt="" />
+        <img
+          class="full win-bubble"
+          src="assets/02_endcard/win/bubble.png"
+          alt=""
+        />
+        <img
+          class="full win-confetti"
+          src="assets/02_endcard/win/konfetti.png"
+          alt=""
+        />
+        <img
+          class="full win-happy"
+          src="assets/02_endcard/win/happy.png"
+          alt=""
+        />
+        <img
+          class="full win-hl"
+          src="assets/02_endcard/win/hl.png"
+          alt="Poo, tut das gut!"
+        />
+        <img
+          id="win-cta"
+          class="button cta"
+          src="assets/02_endcard/win/cta.png"
+          alt="Jetzt mehr erfahren"
+        />
+      </div>
+
+      <!-- ===== ALWAYS ON TOP ===== -->
+      <div id="logo-bar"></div>
+      <img class="full" src="assets/logo.png" alt="Logo" />
+      <button id="mute" type="button" aria-label="Ton aus">🔊</button>
+      <div id="debug-layer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>
